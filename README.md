@@ -31,12 +31,19 @@ pip install -r requirements.txt
 
 Model weights are not included in this repository.
 
-Please place the released checkpoints at:
+Released checkpoints are hosted on Hugging Face:
+
+- `donard1003/PADLOS`
+- https://huggingface.co/donard1003/PADLOS
+
+Download the following files and place them at:
 
 - `PDSegmentor/checkpoints/pgm.pth`
 - `PDSegmentor/checkpoints/depth_anything_v2_vits.pth`
 
 The default root entrypoints expect these exact filenames.
+
+The repository keeps an empty `PDSegmentor/checkpoints/` directory so the expected layout is visible.
 
 ## Usage
 
