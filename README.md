@@ -5,7 +5,7 @@ This repository releases the inference pipeline for PADLOS:
 - PGM for binary mask and depth inference
 - ACM for downstream instance extraction
 
-The recommended public entrypoints are [run_pgm.py](/media/user/drive11/padlos/PADLOS/run_pgm.py) and [run_acm.py](/media/user/drive11/padlos/PADLOS/run_acm.py).
+The recommended public entrypoints are [run_pgm.py](./run_pgm.py) and [run_acm.py](./run_acm.py).
 
 ## Installation
 
@@ -33,7 +33,6 @@ Model weights are not included in this repository.
 
 Released checkpoints are hosted on Hugging Face:
 
-- `donard1003/PADLOS`
 - https://huggingface.co/donard1003/PADLOS
 
 Download the following files and place them at:
@@ -41,9 +40,8 @@ Download the following files and place them at:
 - `PDSegmentor/checkpoints/pgm.pth`
 - `PDSegmentor/checkpoints/depth_anything_v2_vits.pth`
 
-The default root entrypoints expect these exact filenames.
+The repository keeps `PDSegmentor/checkpoints/` in place so the expected layout is visible.
 
-The repository keeps an empty `PDSegmentor/checkpoints/` directory so the expected layout is visible.
 
 ## Usage
 
@@ -126,13 +124,13 @@ Supported formats: `jpg`, `jpeg`, `png`, `bmp`, `tif`, `tiff`.
 
 Inference results are saved in the root `outputs/` directory:
 
-- [outputs/masks](/media/user/drive11/padlos/PADLOS/outputs/masks): binary masks named `*_mask.png`
-- [outputs/depth](/media/user/drive11/padlos/PADLOS/outputs/depth): depth outputs named `*_depth_gray.png`, `*_depth_color.png`, and optionally `*_depth.npy`
-- [outputs/instances](/media/user/drive11/padlos/PADLOS/outputs/instances): ACM instance outputs named `*_instances.png`
+- [outputs/masks](./outputs/masks): binary masks named `*_mask.png`
+- [outputs/depth](./outputs/depth): depth outputs named `*_depth_gray.png`, `*_depth_color.png`, and optionally `*_depth.npy`
+- [outputs/instances](./outputs/instances): ACM instance outputs named `*_instances.png`
 
 ## Main Arguments
 
-Useful options for [run_pgm.py](/media/user/drive11/padlos/PADLOS/run_pgm.py):
+Useful options for [run_pgm.py](./run_pgm.py):
 
 - `--task {both,mask,depth}`: choose which outputs to generate
 - `--device {auto,cuda,cpu}`: choose the inference device
@@ -142,15 +140,18 @@ Useful options for [run_pgm.py](/media/user/drive11/padlos/PADLOS/run_pgm.py):
 - `--grayscale`: save grayscale depth previews instead of colorized ones
 - `--show-depth`: display depth figures in a window
 
-Useful options for [run_acm.py](/media/user/drive11/padlos/PADLOS/run_acm.py):
+Useful options for [run_acm.py](./run_acm.py):
 
 - `--mask-dir`: choose the directory containing PGM masks
 - `--depth-dir`: choose the directory containing PGM depth maps
 - `--save-dir`: choose where ACM instance results are written
 - `--limit N`: only process the first `N` images
 
-## Notes
+## Acknowledgements
 
-- If your GPU is not compatible with the installed PyTorch build, use `--device cpu`.
-- RTX 50-series GPUs need a recent PyTorch build with matching CUDA support.
-- `run_pgm.py` and `run_acm.py` are the recommended public entrypoints.
+The PGM frontend in this release builds on public model components and codebases from:
+
+- Depth Anything V2
+- DINOv2
+
+We thank the authors of these projects for making their models and implementations publicly available. Please also follow their original licenses and citation requirements when using this repository.
