@@ -40,7 +40,6 @@ Download the following files and place them at:
 - `PDSegmentor/checkpoints/pgm.pth`
 - `PDSegmentor/checkpoints/depth_anything_v2_vits.pth`
 
-The repository keeps `PDSegmentor/checkpoints/` in place so the expected layout is visible.
 
 
 ## Usage
@@ -50,31 +49,31 @@ Recommended workflow:
 1. Run PGM to generate masks and depth maps.
 2. Run ACM to generate instance extraction results.
 
-Run both mask and depth inference:
+Common `run_pgm.py` examples:
 
 ```bash
-python run_pgm.py --img-path data/imgs --device auto
+python run_pgm.py --img-path data/imgs
 ```
 
-Run mask inference only:
+- Mask only:
 
 ```bash
-python run_pgm.py --img-path data/imgs --task mask --device auto
+python run_pgm.py --img-path data/imgs --task mask
 ```
 
-Run depth inference only:
+- Depth only:
 
 ```bash
-python run_pgm.py --img-path data/imgs --task depth --device auto
+python run_pgm.py --img-path data/imgs --task depth
 ```
 
-Run on CPU explicitly:
+- CPU:
 
 ```bash
 python run_pgm.py --img-path data/imgs --device cpu
 ```
 
-Save raw depth arrays in addition to PNG files:
+- Depth + `.npy`:
 
 ```bash
 python run_pgm.py --img-path data/imgs --task depth --save-npy
@@ -90,25 +89,6 @@ Run ACM on a single image:
 
 ```bash
 python run_acm.py --img-path data/imgs/test.png
-```
-
-## Minimal Output
-
-`run_pgm.py`
-
-```text
-Input images: 1 from data/imgs
-Saving masks to: /path/to/PADLOS/outputs/masks
-Saving depth outputs to: /path/to/PADLOS/outputs/depth
-```
-
-`run_acm.py`
-
-```text
-Input images: 1 from data/imgs
-Using masks from: /path/to/PADLOS/outputs/masks
-Using depth from: /path/to/PADLOS/outputs/depth
-Saving instances to: /path/to/PADLOS/outputs/instances
 ```
 
 ## Inputs
@@ -149,9 +129,4 @@ Useful options for [run_acm.py](./run_acm.py):
 
 ## Acknowledgements
 
-The PGM frontend in this release builds on public model components and codebases from:
-
-- Depth Anything V2
-- DINOv2
-
-We thank the authors of these projects for making their models and implementations publicly available. Please also follow their original licenses and citation requirements when using this repository.
+> This project utilizes the robust depth estimation capabilities of **[Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)** and features from **[DINOv2](https://github.com/facebookresearch/dinov2)**. We thank the authors for their open-source contributions.
