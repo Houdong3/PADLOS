@@ -1,8 +1,0 @@
-pulp
-networkx
-scipy
-scikit-image
-scikit-learn
-colormath
-adjustText
-numba

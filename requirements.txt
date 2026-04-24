@@ -1,0 +1,16 @@
+# Install PyTorch separately for your platform before this file.
+# See README.md for suggested commands.
+
+adjustText
+colormath
+matplotlib
+networkx
+numba
+numpy
+opencv-python
+Pillow
+pulp
+pydot
+scikit-image
+scikit-learn
+scipy

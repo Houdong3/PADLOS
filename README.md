@@ -1,52 +1,49 @@
 # PADLOS
 
-This repository releases the inference pipeline for the PADLOS PGM module and the downstream ACM instance extraction module.
+This repository releases the inference pipeline for PADLOS:
 
-The root entrypoints are:
+- PGM for binary mask and depth inference
+- ACM for downstream instance extraction
 
-- [run_pgm.py](/media/user/drive11/padlos/PADLOS/run_pgm.py)
-- [run_acm.py](/media/user/drive11/padlos/PADLOS/run_acm.py)
+The recommended public entrypoints are [run_pgm.py](/media/user/drive11/padlos/PADLOS/run_pgm.py) and [run_acm.py](/media/user/drive11/padlos/PADLOS/run_acm.py).
 
-`run_pgm.py` can generate:
+## Installation
 
-- binary masks for the PGM segmentation output
-- depth maps for the downstream ACM module
+1. Install PyTorch for your platform first.
 
-`run_acm.py` uses:
-
-- the original input image
-- PGM binary masks
-- PGM depth maps
-
-to generate instance extraction results.
-
-## Requirements
-
-Install the PGM runtime dependencies:
+For CPU-only environments:
 
 ```bash
-pip install -r PDSegmentor/requirements.txt
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 ```
 
-Install the ACM runtime dependencies:
+For CUDA environments, install a PyTorch build that matches your CUDA version and GPU from the official PyTorch instructions:
+
+https://pytorch.org/get-started/locally/
+
+2. Install the remaining runtime dependencies:
 
 ```bash
-pip install -r instance_extractor/requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Checkpoints
 
-The released checkpoints are stored in:
+Model weights are not included in this repository.
 
-- [PDSegmentor/checkpoints/pgm.pth](/media/user/drive11/padlos/PADLOS/PDSegmentor/checkpoints/pgm.pth)
-- [PDSegmentor/checkpoints/depth_anything_v2_vits.pth](/media/user/drive11/padlos/PADLOS/PDSegmentor/checkpoints/depth_anything_v2_vits.pth)
+Please place the released checkpoints at:
+
+- `PDSegmentor/checkpoints/pgm.pth`
+- `PDSegmentor/checkpoints/depth_anything_v2_vits.pth`
+
+The default root entrypoints expect these exact filenames.
 
 ## Usage
 
 Recommended workflow:
 
-1. run PGM to generate masks and depth maps
-2. run ACM to generate instance extraction results
+1. Run PGM to generate masks and depth maps.
+2. Run ACM to generate instance extraction results.
 
 Run both mask and depth inference:
 
@@ -90,7 +87,7 @@ Run ACM on a single image:
 python run_acm.py --img-path data/imgs/test.png
 ```
 
-Minimal console output examples:
+## Minimal Output
 
 `run_pgm.py`
 
@@ -113,18 +110,18 @@ Saving instances to: /path/to/PADLOS/outputs/instances
 
 `--img-path` accepts:
 
-- a single image path
-- a directory containing images
+- a single image
+- a directory of images
 
-Supported formats include `jpg`, `jpeg`, `png`, `bmp`, `tif`, and `tiff`.
+Supported formats: `jpg`, `jpeg`, `png`, `bmp`, `tif`, `tiff`.
 
 ## Outputs
 
 Inference results are saved in the root `outputs/` directory:
 
-- [outputs/masks](/media/user/drive11/padlos/PADLOS/outputs/masks): binary segmentation masks named `*_mask.png`
+- [outputs/masks](/media/user/drive11/padlos/PADLOS/outputs/masks): binary masks named `*_mask.png`
 - [outputs/depth](/media/user/drive11/padlos/PADLOS/outputs/depth): depth outputs named `*_depth_gray.png`, `*_depth_color.png`, and optionally `*_depth.npy`
-- [outputs/instances](/media/user/drive11/padlos/PADLOS/outputs/instances): ACM instance extraction outputs named `*_instances.png`
+- [outputs/instances](/media/user/drive11/padlos/PADLOS/outputs/instances): ACM instance outputs named `*_instances.png`
 
 ## Main Arguments
 
@@ -148,4 +145,5 @@ Useful options for [run_acm.py](/media/user/drive11/padlos/PADLOS/run_acm.py):
 ## Notes
 
 - If your GPU is not compatible with the installed PyTorch build, use `--device cpu`.
+- RTX 50-series GPUs need a recent PyTorch build with matching CUDA support.
 - `run_pgm.py` and `run_acm.py` are the recommended public entrypoints.
